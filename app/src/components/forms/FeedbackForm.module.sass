@@ -1,0 +1,56 @@
+.form
+  width: 360px
+  padding: 40px 60px
+  margin: 20px auto 0
+  background-color: white
+  border-radius: 3px
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.2)
+
+  .title
+    font-size: 20px
+    margin-bottom: 20px
+
+  .row
+    display: flex
+    flex-direction: column
+    margin-bottom: 15px
+
+    .cols
+      display: flex
+      flex-direction: row
+      gap: 10px
+
+      .col
+        display: flex
+        flex-direction: column
+        width: 50%
+
+  .actionRow
+    display: flex
+    justify-content: flex-end
+    margin-top: 30px
+
+    .btnSubmit
+      width: 120px
+      height: 30px
+
+  .label
+    color: #424242
+
+.datepicker
+  width: calc(100% - 8px)
+
+.validationMessage
+  color: red
+  font-size: 14px
+
+.serverResponseError
+  color: red
+  margin-top: 10px
+  font-size: 14px
+
+.serverResponseSuccess
+  color: green
+  margin-top: 10px
+  font-size: 14px
+  text-align: center
