@@ -11,21 +11,20 @@ server.use(
   })
 );
 
-var isFeedbackSubmitSuccessful = false;
+let isFeedbackSubmitSuccessful = false;
 
 server.post("/feedback-form-submit", (req, res) => {
   if (isFeedbackSubmitSuccessful) {
     res.statusCode = 200;    
     setTimeout(() => res.jsonp({
       message: "Отправлено успешно!"
-    }), 2000);
-    
+    }), 1000);    
   }
   else {
     res.statusCode = 400;
     setTimeout(() => res.jsonp({
       message: "Неверный запрос"
-    }), 2000);
+    }), 1000);
   }
   isFeedbackSubmitSuccessful = !isFeedbackSubmitSuccessful;
 });

@@ -1,46 +1,45 @@
-import { ValidationMessages, FieldValues } from "./FeedbackForm";
+import { ValidationMessages, FieldValues } from "../forms/FeedbackForm";
 
-function setValidateFormValues<T extends FieldValues | ValidationMessages>(
+const setValidateFormValues = <T extends FieldValues | ValidationMessages>(
   fieldValues: T,
   fieldName: string,
   fieldValue: string | Date,
   setFieldValues: React.Dispatch<React.SetStateAction<T>>
-) {
+) => {
   setFieldValues({
     ...fieldValues,
     ...{
       [fieldName]: fieldValue,
     },
   });
-}
+};
 
-export const validateField = (
+export const validateField = <T extends string | Date>(
   fieldName: string,
-  fieldValue: string | Date,
+  fieldValue: T,
   formValues: FieldValues,
   validationMessages: ValidationMessages,
   setFormValues: React.Dispatch<React.SetStateAction<FieldValues>>,
   setValidationMessage: React.Dispatch<React.SetStateAction<ValidationMessages>>
-): boolean => {
+) => {
   switch (fieldName) {
     case "fullName": {
-      const val = fieldValue as string;
-      const upperCasedFullName = val.toUpperCase();
+      const value = fieldValue as string;
+      const upperCasedFullName = value.toUpperCase();
       setValidateFormValues(
         formValues,
         fieldName,
         upperCasedFullName,
         setFormValues
       );
-
-      if (!val.length) {
+      if (!value.length) {
         setValidateFormValues(
           validationMessages,
           fieldName,
           "Введите имя и фамилию",
           setValidationMessage
         );
-        return false;
+        break;
       }
 
       const validRegex = upperCasedFullName.match(/[A-Z]{3,30}\s[A-Z]{3,30}/);
@@ -58,25 +57,24 @@ export const validateField = (
         isValid ? "" : message,
         setValidationMessage
       );
-
-      return isValid;
+      break;
     }
 
     case "email": {
       setValidateFormValues(formValues, fieldName, fieldValue, setFormValues);
-      const val = fieldValue as string;
+      const value = fieldValue as string;
 
-      if (!val.length) {
+      if (!value.length) {
         setValidateFormValues(
           validationMessages,
           fieldName,
           "Введите e-mail",
           setValidationMessage
         );
-        return false;
+        break;
       }
 
-      const isValid = val
+      const isValid = value
         .toLowerCase()
         .match(
           /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/
@@ -89,13 +87,12 @@ export const validateField = (
         isValid ? "" : message,
         setValidationMessage
       );
-
-      return isValid != null;
+      break;
     }
 
     case "phone": {
-      const val = fieldValue as string;
-      const phoneNamber = val.replace(/_/g, "");
+      const value = fieldValue as string;
+      const phoneNamber = value.replace(/_/g, "");
       setValidateFormValues(formValues, fieldName, phoneNamber, setFormValues);
 
       if (phoneNamber.length <= 7) {
@@ -105,7 +102,7 @@ export const validateField = (
           "Введите номер телефона",
           setValidationMessage
         );
-        return false;
+        break;
       }
 
       const isValid: boolean = phoneNamber.length === 17;
@@ -116,8 +113,7 @@ export const validateField = (
         isValid ? "" : message,
         setValidationMessage
       );
-
-      return isValid;
+      break;
     }
 
     case "dateOfBirth": {
@@ -133,7 +129,7 @@ export const validateField = (
         isValid ? "" : message,
         setValidationMessage
       );
-      return isValid;
+      break;
     }
 
     case "message": {
@@ -147,7 +143,7 @@ export const validateField = (
           "Введите сообщение",
           setValidationMessage
         );
-        return false;
+        break;
       }
       const isValid: boolean = val.length >= 10 && val.length <= 300;
 
@@ -159,10 +155,7 @@ export const validateField = (
         isValid ? "" : message,
         setValidationMessage
       );
-
-      return isValid;
+      break;
     }
-    default:
-      return false;
   }
 };
