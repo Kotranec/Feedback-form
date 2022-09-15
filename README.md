@@ -21,3 +21,7 @@ npm run dev
 ```
 http://localhost:8000
 ```
+
+### Test task
+
+<a href="https://github.com/Kotranec/Feedback-form/blob/main/TestTask.md" title="Test task"><img align="left" alt="TestTask" width="26px" title="TestTask" src="https://https://github.com/Kotranec/Feedback-form/blob/main/TestTaskLogo.jpg" /></a>
